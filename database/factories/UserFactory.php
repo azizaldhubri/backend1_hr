@@ -26,6 +26,7 @@ class UserFactory extends Factory
             'salary' => '1000',
             'role_id' => '1',
             'phone_number' => '21321',
+            'national_id' => '221',
             'password' => Hash::make('admin123$%'), // password
             'remember_token' => Str::random(11),
         ];
