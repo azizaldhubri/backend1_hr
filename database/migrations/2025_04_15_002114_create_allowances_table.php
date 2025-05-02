@@ -16,7 +16,9 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained('users')->onDelete('cascade');
             $table->string('allowance_type');
             $table->decimal('amount', 10, 2);            
-            $table->date('effective_date')->default(DB::raw('CURRENT_DATE'));            
+            // $table->date('effective_date')->default(DB::raw('CURRENT_DATE'));          
+            $table->timestamp('effective_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+
             $table->timestamps();
         });
     }
