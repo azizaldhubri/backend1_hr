@@ -19,15 +19,15 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => "admin",
-            'email' => 'ali@gmail.com',
+            'name' => "omer",
+            'email' => 'omer@gmail.com',
             'email_verified_at' => now(),
             'role' => 'admin',
             'salary' => '1000',
             'role_id' => '1',
-            'phone_number' => '213231',
-            'national_id' => '2213',
-            'password' => Hash::make('aaaaaa%'), // password
+            'phone_number' => '2313231',
+            'national_id' => '22313',
+            'password' => Hash::make('oooooo'), // password
             'remember_token' => Str::random(11),
              'job_title' => 'System Administrator',
             'birth_date' => '1990-01-01',
