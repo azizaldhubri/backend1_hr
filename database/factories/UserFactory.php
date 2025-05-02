@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'national_id' => '221',
             'password' => Hash::make('admin123$%'), // password
             'remember_token' => Str::random(11),
+             'job_title' => 'System Administrator',
         ];
     }
 
