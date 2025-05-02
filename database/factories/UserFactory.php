@@ -20,14 +20,14 @@ class UserFactory extends Factory
     {
         return [
             'name' => "admin",
-            'email' => 'admin@gmail.com',
+            'email' => 'ali@gmail.com',
             'email_verified_at' => now(),
             'role' => 'admin',
             'salary' => '1000',
             'role_id' => '1',
-            'phone_number' => '21321',
-            'national_id' => '221',
-            'password' => Hash::make('admin123$%'), // password
+            'phone_number' => '213231',
+            'national_id' => '2213',
+            'password' => Hash::make('aaaaaa%'), // password
             'remember_token' => Str::random(11),
              'job_title' => 'System Administrator',
             'birth_date' => '1990-01-01',
