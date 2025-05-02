@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('absences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('users')->onDelete('cascade');           
-            $table->date('absence_date')->default(DB::raw('CURRENT_DATE')); 
+            // $table->date('absence_date')->default(DB::raw('CURRENT_DATE')); 
+            $table->timestamp('absence_date')->default(DB::raw('CURRENT_TIMESTAMP')); 
             $table->enum('absence_type', ['without_permission', 'with_permission']);
             $table->decimal('deduction_amount', 10, 2);
             $table->timestamps();
