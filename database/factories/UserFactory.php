@@ -30,6 +30,10 @@ class UserFactory extends Factory
             'password' => Hash::make('admin123$%'), // password
             'remember_token' => Str::random(11),
              'job_title' => 'System Administrator',
+            'birth_date' => '1990-01-01',
+            'hire_date' => '1990-01-01',
+            'department_id' => '1',
+             
         ];
     }
 
