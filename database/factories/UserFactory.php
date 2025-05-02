@@ -33,6 +33,7 @@ class UserFactory extends Factory
             'birth_date' => '1990-01-01',
             'hire_date' => '1990-01-01',
             'department_id' => '1',
+            'nationality' => 'Egyptian',
              
         ];
     }
