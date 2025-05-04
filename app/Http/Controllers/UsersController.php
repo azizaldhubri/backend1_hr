@@ -164,7 +164,8 @@ class UsersController extends Controller
             Notification::create([
                 'employee_id' => $request->input('admin'), // ID المشرف أو المدير (يمكنك تغييره وفقًا للنظام لديك)
                 'message' => 'تم اضافة موظف جديد' ,
-                'link_notification'=>$request->input('link_notification'),
+              'link_notification'=>'users',
+                
             ]);
     
             return response()->json(['message' => 'Files uploaded successfully'], 200);
