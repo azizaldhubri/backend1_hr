@@ -120,6 +120,8 @@ class UsersController extends Controller
             'phone_number' => 'required',            
             'role' => 'required',
             'role_id' => 'required',
+            'department_id' => 'required',
+            'nationality' => 'required',
         ]);
 
         $filePaths = [];
@@ -204,6 +206,8 @@ class UsersController extends Controller
             'phone_number' => 'required',            
             'role' => 'required',
             'role_id' => 'required',
+            'department_id' => 'required',
+            'nationality' => 'required',
             
         ]);
         
