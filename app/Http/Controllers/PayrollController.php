@@ -135,6 +135,64 @@ class PayrollController extends Controller
     return response()->json(['message' => 'تم تسجيل الراتب بنجاح', 'payroll' => $payrollData]);
 }
 
+
+      public function updatePayroll()
+    {
+        $month = ($month ?? now()->subMonth()->month) + 1;
+        $year = $year ?? now()->subMonth()->year;
+        $employees = User::all();
+        $employeeIds = $employees->pluck('id')->toArray();
+    
+        $allowances = Allowances::whereIn('employee_id', $employeeIds)
+            ->whereMonth('effective_date', $month)
+            ->whereYear('effective_date', $year)
+            ->get()
+            ->groupBy('employee_id');
+    
+        $absences = Absences::whereIn('employee_id', $employeeIds)
+            ->whereMonth('absence_date', $month)
+            ->whereYear('absence_date', $year)
+            ->get()
+            ->groupBy('employee_id');
+    
+        $deductions = Deductions::whereIn('employee_id', $employeeIds)
+            ->whereMonth('effective_date', $month)
+            ->whereYear('effective_date', $year)
+            ->get()
+            ->groupBy('employee_id');
+    
+        $advances = \App\Models\Advance::whereIn('employee_id', $employeeIds)
+            ->where('type', 'deduction') // فقط الخصومات
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->get()
+            ->groupBy('employee_id');
+    
+        foreach ($employees as $employee) {
+            $totalAllowances = isset($allowances[$employee->id]) ? $allowances[$employee->id]->sum('amount') : 0;
+            $totalAbsences = isset($absences[$employee->id]) ? $absences[$employee->id]->sum('deduction_amount') : 0;
+            $totalDeductions = isset($deductions[$employee->id]) ? $deductions[$employee->id]->sum('amount') : 0;
+            $advanceDeductions = isset($advances[$employee->id]) ? $advances[$employee->id]->sum('amount') : 0;
+    
+            $totalDeductionAll = $totalDeductions + $totalAbsences + $advanceDeductions;
+    
+            $netSalary = $employee->salary + $totalAllowances - $totalDeductionAll;
+    
+            Payroll::updateOrCreate(
+                ['employee_id' => $employee->id, 'month' => $month, 'year' => $year],
+                [
+                    'basic_salary' => $employee->salary,
+                    'total_allowances' => $totalAllowances,
+                    'total_deductions' => $totalDeductionAll,
+                    'net_salary' => $netSalary,
+                    'payment_status' => 'unpaid',
+                ]
+            );
+        }
+    
+        return response()->json(['message' => 'تم احتساب المرتبات بنجاح!']);
+    }
+
 // --------------------حساب المرتب لكل الموظفين----------------------------------
 public function processPayroll() 
 {
