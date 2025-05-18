@@ -138,6 +138,8 @@
     Route::post('/allowances', [PayrollController::class, 'addallowances']);
     // Route::post('/calculate-salary', [PayrollController::class, 'calculateSalary']);
 
+    Route::post('/update_payroll', [PayrollController::class, 'updatePayroll']);
+
     Route::get('/employee/{id}/deductions', [PayrollController::class, 'getEmployeeDeductions']);
     Route::get('/employee/{id}/Allowances', [PayrollController::class, 'getEmployeeAllowances']);
     
